@@ -1,6 +1,6 @@
 import unittest
 from click.testing import CliRunner
-from .lib.cli import add_user, add_task
+from lib.cli import add_user, add_task
 
 class TestAddUser(unittest.TestCase):
     def test_add_user(self):
