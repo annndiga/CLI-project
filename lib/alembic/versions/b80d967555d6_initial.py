@@ -1,8 +1,8 @@
-"""create_table
+"""initial
 
-Revision ID: e0cb0652fc93
-Revises: 13624ba60ebe
-Create Date: 2023-09-10 21:20:11.965523
+Revision ID: b80d967555d6
+Revises: 
+Create Date: 2023-09-13 15:21:38.530592
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'e0cb0652fc93'
-down_revision: Union[str, None] = '13624ba60ebe'
+revision: str = 'b80d967555d6'
+down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -27,8 +27,8 @@ def upgrade():
         sa.Column('priority', sa.String),  # You can specify the appropriate data type for priority
         sa.Column('due_date', sa.String),  # You can specify the appropriate data type for due date
         sa.Column('user_id', sa.Integer, sa.ForeignKey('users.id')),
-        sa.Column('category_id', sa.Integer, sa.ForeignKey('categories.id'))
     )
+
 
 
 def downgrade():

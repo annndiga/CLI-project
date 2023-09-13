@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from base import Base
-
+from .association import task_category_association  # Import the association table
 
 class Task(Base):
     __tablename__ = 'tasks'
@@ -9,23 +9,21 @@ class Task(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
     description = Column(Text)
-    priority = Column(String)  # You can define the appropriate data type for priority
-    due_date = Column(String)  # You can define the appropriate data type for due date
+    priority = Column(String)
+    due_date = Column(String)
 
-    # Define a foreign key column to link tasks to users
+    # a foreign key column to link tasks to users
     user_id = Column(Integer, ForeignKey('users.id'))
-    
-    # Define a foreign key column to link tasks to categories
-    category_id = Column(Integer, ForeignKey('categories.id'))
 
-    # Define the relationships with User and Category
+    #  many-to-one relationship with User
     user = relationship("User", back_populates="tasks")
-    category = relationship("Category", back_populates="tasks")
 
-    def __init__(self, title, description, priority, due_date, user_id, category_id):
+    # many-to-many relationship with Category using the association table
+    categories = relationship("Category", secondary=task_category_association, back_populates="tasks")
+
+    def __init__(self, title, description, priority, due_date, user):
         self.title = title
         self.description = description
         self.priority = priority
         self.due_date = due_date
-        self.user_id = user_id
-        self.category_id = category_id
+        self.user = user 
